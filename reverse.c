@@ -1,3 +1,9 @@
+/*This is a working solution to the Problem Set Reverse from Harvard's CS50x course:
+https://cs50.harvard.edu/x/2023/psets/4/
+This is for showcase and eductional purposes only. 
+Students taking CS50, I stronlgy encourage you to attempt your own code and use this as inspiration 
+only. Keep in mind the Academic Honesty Policy!*/
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
