@@ -73,20 +73,20 @@ int main(int argc, char *argv[])
 
     // Write reversed audio to file
     // TODO #8
-    //initialise fseek() <size of block> before EOF
-    fseek(input, 0 - size, SEEK_END);
-    //initialise a buffer of 32 bits
-    int32_t buffer = 0;
-    //create a variable <size of headerfile>, minus<size of block>, so the last iteriation whill start right at the end of header
-    int x = sizeof(fheader) - size;
-
-    //create int i at the offset
-    for (int i = ftell(input); i > x; i -= size)
+        /*
+    -create a buffer array of 8 bits * <size of block>; 
+    initialise loop at <size of block> before EOF; 
+    continue until <pointer current location>-<size of block> is at start of audio data chunk;
+    place fseek() pointer back twice <size of block>, once to the previous location, once more to go 
+    to the new location
+        */
+    BYTE buffer[size];
+    for (fseek(input, 0 - size, SEEK_END); ftell(input) > sizeof(fheader)-size; fseek(input, 0 - (size * 2), SEEK_CUR))
     { 
         fread(&buffer, size, 1, input);
         fwrite(&buffer, size, 1, output);
-        fseek(input, 0 - (size*2), SEEK_CUR);
     }
+  
 
     fclose(input);
     fclose(output);
